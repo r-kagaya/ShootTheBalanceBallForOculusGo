@@ -61,12 +61,8 @@ public class Player : MonoBehaviour {
             // Rayがヒットしたらそこまで
             _LaserPointerRenderer.SetPosition(1, hitInfo.point);
 
-            Debug.Log(hitInfo.collider.gameObject);
-            Debug.Log(hitInfo.transform.gameObject);
-
-            if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)) {
+            if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger) && hitInfo.collider.tag == "BlanceBall") {
                 Destroy(hitInfo.collider.gameObject); 
-                Destroy(hitInfo.transform.gameObject); 
             }
 
         }

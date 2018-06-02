@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 54324415133124844}
   m_Layer: 0
   m_Name: BlanceBall
-  m_TagString: Untagged
+  m_TagString: BlanceBall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
