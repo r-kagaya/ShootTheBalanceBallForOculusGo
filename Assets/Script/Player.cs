@@ -19,6 +19,8 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private LineRenderer _LaserPointerRenderer;
 
+    Rigidbody m_Rigidbody;
+
     private Transform Pointer
     {
         get
@@ -40,6 +42,13 @@ public class Player : MonoBehaviour {
             }
         }
     }
+
+    void Start()
+    {
+        // 自分のRigidbodyを取ってくる
+        m_Rigidbody = GetComponent<Rigidbody>();
+    }
+
 
 	// Update is called once per frame
 	void Update () {
@@ -71,6 +80,33 @@ public class Player : MonoBehaviour {
             // Rayがヒットしなかったら向いている方向にMaxDistance伸ばす
             _LaserPointerRenderer.SetPosition(1, pointerRay.origin + pointerRay.direction * _MaxDistance);
         }
+
+        // WASDで移動する
+        float x = 0.0f;
+        float z = 0.0f;
+
+        if (OVRInput.Get(OVRInput.Button.Right))
+        {
+            x += 1.0f;
+        }
+        if (OVRInput.Get(OVRInput.Button.Left))
+        {
+            x -= 1.0f;
+        }
+        if (OVRInput.Get(OVRInput.Button.Up))
+        {
+
+            z += 1.0f;
+        }
+        if (OVRInput.Get(OVRInput.Button.Down))
+        {
+            z -= 1.0f;
+        }
+
+        Vector2 vector = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
+
+
+        m_Rigidbody.velocity = new Vector3(vector.x, 0.0f, vector.y);
 
 	}
 }
