@@ -84,29 +84,30 @@ public class Player : MonoBehaviour {
         // WASDで移動する
         float x = 0.0f;
         float z = 0.0f;
+        Vector2 pt = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad); 
 
-        if (OVRInput.Get(OVRInput.Button.Right))
+        if (pt.x > 0)///右側？
         {
+            transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f));         // 十字キーで首を左右に回す
             x += 1.0f;
         }
-        if (OVRInput.Get(OVRInput.Button.Left))
+        if (pt.x < 0)///左側？
         {
+            transform.Rotate(new Vector3(0.0f, -1.0f, 0.0f));         // 十字キーで首を左右に回す
             x -= 1.0f;
         }
-        if (OVRInput.Get(OVRInput.Button.Up))
+        if (pt.y > 0)///上側？
         {
 
             z += 1.0f;
         }
-        if (OVRInput.Get(OVRInput.Button.Down))
+        if (pt.y < 0)///下側？
         {
             z -= 1.0f;
         }
 
-        Vector2 vector = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
-
-
-        m_Rigidbody.velocity = new Vector3(vector.x, 0.0f, vector.y);
+        m_Rigidbody.velocity = z * transform.forward + x * transform.right;
+        //m_Rigidbody.velocity = new Vector3(vector.x, 0.0f, vector.y);
 
 	}
 }
