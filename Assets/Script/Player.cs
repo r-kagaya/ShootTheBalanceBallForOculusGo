@@ -81,33 +81,40 @@ public class Player : MonoBehaviour {
             _LaserPointerRenderer.SetPosition(1, pointerRay.origin + pointerRay.direction * _MaxDistance);
         }
 
+	}
+
+    private void FixedUpdate()
+    {
+
         // WASDで移動する
         float x = 0.0f;
         float z = 0.0f;
-        Vector2 pt = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad); 
+        Vector2 pt = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
 
-        if (pt.x > 0)///右側？
+        if (pt.x > 0.5 && -0.5 < pt.y && pt.y < 0.5)///右側？
         {
-            transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f));         // 十字キーで首を左右に回す
-            x += 1.0f;
+            Debug.Log("右側");
+            transform.Rotate(new Vector3(0.0f, 0.5f, 0.0f));         // 十字キーで首を左右に回す
+            x += 0.5f;
         }
-        if (pt.x < 0)///左側？
+        if (pt.x < -0.5 && -0.5 < pt.y && pt.y < 0.5)///左側？
         {
-            transform.Rotate(new Vector3(0.0f, -1.0f, 0.0f));         // 十字キーで首を左右に回す
-            x -= 1.0f;
+            Debug.Log("左");
+            transform.Rotate(new Vector3(0.0f, -0.5f, 0.0f));         // 十字キーで首を左右に回す
+            x -= 0.5f;
         }
-        if (pt.y > 0)///上側？
+        if (pt.y > 0.5 && -0.5 < pt.x && pt.x < 0.5)///上側？
         {
-
-            z += 1.0f;
+            Debug.Log("上");
+            z += 5.0f;
         }
-        if (pt.y < 0)///下側？
+        if (pt.y < -0.5 && -0.5 < pt.x && pt.x < 0.5)///下側？
         {
-            z -= 1.0f;
+            Debug.Log("下");
+            z -= 5.0f;
         }
 
         m_Rigidbody.velocity = z * transform.forward + x * transform.right;
         //m_Rigidbody.velocity = new Vector3(vector.x, 0.0f, vector.y);
-
-	}
+    }
 }
